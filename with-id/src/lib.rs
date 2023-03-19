@@ -2,15 +2,11 @@
 pub use with_id_derive as derive;
 
 
-pub trait WithStrId<'a>{
-    fn id(&'a self) -> &'a str;
-}
-
 pub trait WithStringId{
     fn id(&self) -> String;
 }
 
-pub trait WithRefId<T>{
+pub trait WithRefId<T: ?Sized>{
     fn id(&self) -> &T;
 }
 
@@ -26,9 +22,9 @@ mod tests {
         pub id:String
     }
 
-    impl<'a> WithStrId<'a> for Test{
-        fn id(&'a self) -> &'a str {
-            self.id.as_str()
+    impl WithId<String> for Test{
+        fn id(&self) -> String {
+            self.id.to_string()
         }
     }
 
@@ -38,9 +34,9 @@ mod tests {
         pub other: i64
     }
 
-    impl WithIdRef<String> for Test{
-        fn id(&self) -> &String {
-            &self.id
+    impl WithRefId<str> for Test2{
+        fn id(&self) -> &str {
+          self.id.as_str()
         }
     }
 
@@ -53,9 +49,9 @@ mod tests {
         };
         assert_eq!(test.id(), test.id);
 
-
         let test = Test2{
-            id:"im-an-id".to_string()
+            id:"im-an-id".to_string(),
+            other: 4i64,
         };
         assert_eq!(test.id(), test.id);
     }
