@@ -1,0 +1,19 @@
+[package]
+name = "with-id-derive"
+version = "0.1.0"
+authors = ["Arsenii Rudenko <inbox@arudenko.work>"]
+description = "A derive macro for with-id"
+keywords = ["template", "derive", "id"]
+edition = "2018"
+license = "MIT"
+repository ="https://github.com/ArseniiRudenko/with-str-id"
+
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1"
+proc-macro2 = "1.0"
+syn = "2.0.0"
+
