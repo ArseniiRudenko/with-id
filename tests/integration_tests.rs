@@ -81,3 +81,17 @@ fn test5(){
     assert_eq!(t.id(),t.pb)
 }
 
+
+#[derive(WithId)]
+struct Test6{
+    #[id]
+    pub int: i32
+}
+
+#[test]
+fn test6(){
+    let t = Test6{
+        int: 12i32
+    };
+    assert_eq!(t.id(),t.int)
+}
