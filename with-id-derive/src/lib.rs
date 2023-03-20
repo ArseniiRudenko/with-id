@@ -2,6 +2,8 @@ use proc_macro::TokenStream;
 use std::ops::Deref;
 use quote::quote;
 use syn::{spanned::Spanned, DeriveInput, Data, DataStruct, Field, parse_macro_input};
+extern crate syn;
+
 
 fn get_by_attr(data_struct: &DataStruct) -> Option<&Field> {
     data_struct.fields.iter().find(|field| {
@@ -15,6 +17,8 @@ fn get_by_name(data_struct: &DataStruct) -> Option<&Field> {
         field.ident.as_ref().map_or(false, |ident| ident == "id")
     })
 }
+
+
 
 fn get_id_field(ast: &DeriveInput)->Result<&Field,syn::Error>{
 
@@ -68,10 +72,19 @@ pub fn with_string_id_derive(input: TokenStream) -> TokenStream {
 
     let id_field_name = id_field.ident.as_ref().unwrap();
 
+    let lifetimes= ast.generics.lifetimes();
+    let lifetimes_count = ast.generics.lifetimes().count();
+    let lifetime_params = if lifetimes_count == 0 {
+        quote!{}
+    } else {
+        quote! { <#(#lifetimes),*> }
+    };
+
+
     // Generate the implementation for the trait
     let gen =
         quote! {
-                    impl WithStringId for #name {
+                    impl#lifetime_params WithStringId for #name#lifetime_params {
                         fn id(&self) -> String {
                             self.#id_field_name.to_string()
                         }
@@ -96,11 +109,17 @@ pub fn with_id_derive(input: TokenStream) -> TokenStream {
 
     let id_field_name = id_field.ident.as_ref().unwrap();
     let id_field_ty = &id_field.ty;
-
+    let lifetimes= ast.generics.lifetimes();
+    let lifetimes_count = ast.generics.lifetimes().count();
+    let lifetime_params = if lifetimes_count == 0 {
+        quote!{}
+    } else {
+        quote! { <#(#lifetimes),*> }
+    };
     // Generate the implementation for the trait
     let gen =
         quote! {
-                    impl WithId<#id_field_ty> for #name {
+                    impl#lifetime_params WithId<#id_field_ty> for #name#lifetime_params {
                         fn id(&self) -> #id_field_ty {
                             self.#id_field_name.clone()
                         }
@@ -125,22 +144,21 @@ pub fn with_ref_id_derive(input: TokenStream) -> TokenStream {
 
     let id_field_name = id_field.ident.as_ref().unwrap();
     let id_field_ty = &id_field.ty;
-    let lifetimes_count = ast.generics.lifetimes().count();
-    // Repeat the same token stream `num_lifetimes` times
-    let lifetime_params = if lifetimes_count == 0 {
-            quote!{}
-        } else {
-            let lifetimes = ast.generics.lifetimes();
-            quote! { <#(#lifetimes),*> }
-        };
 
+    let lifetimes= ast.generics.lifetimes();
+    let lifetimes_count = ast.generics.lifetimes().count();
+    let lifetime_params = if lifetimes_count == 0 {
+        quote!{}
+    } else {
+        quote! { <#(#lifetimes),*> }
+    };
 
 
     let gen = if let syn::Type::Path(type_path) = id_field_ty {
         if let Some(segment) = type_path.path.segments.first() {
             if segment.ident == "String" {
                 quote! {
-                    impl WithRefId<str> for #name {
+                    impl#lifetime_params WithRefId<str> for #name#lifetime_params {
                         fn id(&self) -> &str {
                             self.#id_field_name.as_str()
                         }
@@ -148,7 +166,7 @@ pub fn with_ref_id_derive(input: TokenStream) -> TokenStream {
                 }
             }else{
                 quote! {
-                    impl WithRefId<#id_field_ty> for #name {
+                    impl#lifetime_params WithRefId<#id_field_ty> for #name#lifetime_params {
                         fn id(&self) -> &#id_field_ty {
                             &self.#id_field_name
                         }

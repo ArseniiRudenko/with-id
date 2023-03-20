@@ -114,3 +114,50 @@ impl TakesRecord<Record> for Client{
         self.url.to_owned()+record.id()
     }
 }
+
+
+#[derive(WithRefId)]
+struct RecordWithLifetimes<'a>{
+    id: String,
+    some_other: &'a str
+}
+
+#[test]
+fn test7(){
+    let t = RecordWithLifetimes{
+        id: "as".to_string(),
+        some_other: "a"
+    };
+    assert_eq!(t.id(),t.id)
+}
+
+#[derive(WithStringId)]
+struct StrRecordWithLifetimes<'a>{
+    id: String,
+    some_other: &'a str
+}
+
+#[test]
+fn test8(){
+    let t = StrRecordWithLifetimes{
+        id: "as".to_string(),
+        some_other: "a"
+    };
+    assert_eq!(t.id(),t.id)
+}
+
+
+#[derive(WithId)]
+struct IdRecordWithLifetimes<'a>{
+    id: String,
+    some_other: &'a str
+}
+
+#[test]
+fn test9(){
+    let t = IdRecordWithLifetimes{
+        id: "as".to_string(),
+        some_other: "a"
+    };
+    assert_eq!(t.id(),t.id)
+}

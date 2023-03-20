@@ -1,6 +1,6 @@
 [package]
 name = "with-id-derive"
-version = "1.0.2"
+version = "1.0.3"
 authors = ["Arsenii Rudenko <inbox@arudenko.work>"]
 description = "A derive macro for with-id"
 keywords = ["template", "derive", "id"]
