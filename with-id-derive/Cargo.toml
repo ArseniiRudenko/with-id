@@ -7,7 +7,7 @@ keywords = ["template", "derive", "id"]
 edition = "2018"
 license = "MIT"
 repository ="https://github.com/ArseniiRudenko/with-str-id"
-
+readme="README.md"
 
 [lib]
 proc-macro = true

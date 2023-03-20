@@ -1,12 +1,14 @@
 [package]
 name = "with-id"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 authors = ["Arsenii Rudenko <inbox@arudenko.work>"]
 description = "Simple trait providing method for getting string id from struct"
 keywords = ["id","str"]
 license = "MIT"
 repository ="https://github.com/ArseniiRudenko/with-str-id"
+readme="README.md"
+
 
 [dependencies]
 with-id-derive ={path="../with-id-derive", optional=true }

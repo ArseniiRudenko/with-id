@@ -1,5 +1,5 @@
 #[cfg(feature = "derive")]
-pub use with_id_derive as derive;
+pub use with_id_derive::*;
 
 
 pub trait WithStringId{

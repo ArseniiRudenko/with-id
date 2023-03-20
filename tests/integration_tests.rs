@@ -1,6 +1,5 @@
 use std::path::PathBuf;
 use with_id::{WithStringId, WithId,WithRefId};
-use with_id::derive::{WithStringId,WithId,WithRefId};
 
 #[derive(WithStringId)]
 struct Test1{
@@ -94,4 +93,24 @@ fn test6(){
         int: 12i32
     };
     assert_eq!(t.id(),t.int)
+}
+
+#[derive(WithRefId)]
+struct Record{
+    id: String,
+    some_other: String
+}
+
+trait TakesRecord<T: WithRefId<str>>{
+    fn get_endpoint(&self,record:T)->String;
+}
+
+struct Client{
+    url:String
+}
+
+impl TakesRecord<Record> for Client{
+    fn get_endpoint(&self,record:Record)->String{
+        self.url.to_owned()+record.id()
+    }
 }
