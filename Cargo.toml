@@ -10,5 +10,5 @@ repository ="https://github.com/ArseniiRudenko/with-str-id"
 
 [dependencies]
 with-id = {path = "with-id", version = "1", features=["derive"]}
-
+with-id-derive = {path = "with-id-derive", version = "1"}
 [workspace]
