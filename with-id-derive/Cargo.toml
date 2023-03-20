@@ -1,12 +1,12 @@
 [package]
 name = "with-id-derive"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["Arsenii Rudenko <inbox@arudenko.work>"]
 description = "A derive macro for with-id"
 keywords = ["template", "derive", "id"]
 edition = "2018"
 license = "MIT"
-repository ="https://github.com/ArseniiRudenko/with-str-id"
+repository ="https://github.com/ArseniiRudenko/with-id"
 readme="README.md"
 
 [lib]

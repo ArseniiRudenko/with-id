@@ -1,12 +1,12 @@
 [package]
 name = "with-id"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2021"
 authors = ["Arsenii Rudenko <inbox@arudenko.work>"]
 description = "Simple trait providing method for getting string id from struct"
 keywords = ["id","str"]
 license = "MIT"
-repository ="https://github.com/ArseniiRudenko/with-str-id"
+repository ="https://github.com/ArseniiRudenko/with-id"
 readme="README.md"
 
 
