@@ -1,6 +1,6 @@
 [package]
 name = "with-id"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 authors = ["Arsenii Rudenko <inbox@arudenko.work>"]
 description = "Simple trait providing method for getting string id from struct"

@@ -1,11 +1,11 @@
 # With id
 
 Small crate containing a couple of traits providing id method.
-Useful when you need to limit some other triat to types that have id field.
+Useful when you need to limit some other trait to types that have id field.
 # Usage
 ```
 [dependencies]
-with-id = {version = "0.1.0", features=["derive"]}
+with-id = {version = "1", features=["derive"]}
 ```
 # Example 
 ```
